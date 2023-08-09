@@ -1,4 +1,4 @@
-import { newNote, allNotes, updateNoteById, deleteNoteById} from "../services/notes.js";
+import { newNote, allNotes, updateNoteById, deleteNoteById, noteById, noteByUserId} from "../services/notes.js";
 
 
 export const getAll = async (req,res)=>{
@@ -10,6 +10,29 @@ export const getAll = async (req,res)=>{
     } 
 
 }
+
+export const getNoteById = async (req,res)=>{
+    const id=parseInt(req.params.id);
+    try {
+        const notes = await noteById(id);
+        res.send(notes);
+    } catch (err) {
+        res.status(500).send('Algo salió mal')
+    } 
+
+}
+
+export const getNoteByUserId = async (req,res)=>{
+    const id=parseInt(req.params.id);
+    try {
+        const notes = await noteByUserId(id);
+        res.send(notes);
+    } catch (err) {
+        res.status(500).send('Algo salió mal')
+    } 
+
+}
+
 
 
 export const createNote = async (req,res)=>{

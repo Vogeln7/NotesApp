@@ -11,10 +11,9 @@ export async function seedAll (){
         lastname:"Vogel",
         email:"david@gmail.com",
         password:hashedPassword,
-    }
-   
-    
+    }   
     const newUser = await createUser(user1);
+    
     const note1={
         title:"Primer Nota",
         content:"Contenido desde el seeder",

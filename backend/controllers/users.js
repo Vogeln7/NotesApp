@@ -16,6 +16,7 @@ export default {
     },
     login : async (req,res)=>{
         const {email,password}= req.body;
+        console.log("Message",email,password)
         
         try {
             const logedUser = await loginUser(email,password);
@@ -23,10 +24,12 @@ export default {
                 res.status(logedUser.errorCode).send({message:logedUser.message});
                 return;
             }
-            res.status(200).send({message:`Usuario ${logedUser.id} fue logueado correctamente`});
+            res.status(200).send({message:`Usuario ${logedUser.id} fue logueado correctamente`,
+            userId:logedUser.id});
             return;
         }
         catch (err) {
+            console.log(err)
             res.status(500).send('Algo salió mal');
         }
         

@@ -1,6 +1,6 @@
 import { checkPassword, encryptPassword } from '../helpers/encryption.js';
 import { createUser, findUserByEmail} from '../repositories/user.js';
-import { getArchivedNotes , getActiveNotes} from '../repositories/note.js';
+import { getArchivedNotes , noteByUser} from '../repositories/note.js';
 
 //hashear password
 
@@ -27,8 +27,8 @@ export const loginUser = async (email,password)=>{
 };
 export const getUserActiveNotes = async (userId)=>{
     
-        const activeNotes= await getActiveNotes(userId);
-        return activeNotes;     
+        const notes= await noteByUser(userId);
+        return notes;     
     
 }
 

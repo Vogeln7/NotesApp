@@ -13,13 +13,30 @@ export async function getAll(){
         return {message:`Hubo un error mostrando las notas`}
     }    
 }
-export async function getActiveNotes(userId){
+
+export async function noteByUser(userId){
+    try{
+        const notes = await noteRepository.find(
+            {
+                where: {
+                    users:{id:userId},
+                    active:true                  
+                },
+            }
+        );
+        return notes;
+    }catch(err){
+        return {message:`Hubo un error mostrando las notas del usuario ${userId}`}
+    }    
+}
+
+export async function getNoteById(noteId){
     try{
         const activeNotes = await noteRepository.find(
             {
                 where: {
                     active:true,
-                    users:{id:userId}                   
+                    id:noteId                  
                 },
             }
         );
@@ -54,6 +71,8 @@ export async function createNote(note){
         return {message:`Hubo un error creando la nota`}
     }    
 }
+
+
 export async function updateNote(id,newData){
     try{
         const updatednote = await noteRepository.update({id:id},newData);

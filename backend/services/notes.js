@@ -1,4 +1,4 @@
-import { createNote, getAll, updateNote, deleteNote} from '../repositories/note.js';
+import { createNote, getAll, updateNote, deleteNote, getNoteById, noteByUser} from '../repositories/note.js';
 
 //hashear password
 
@@ -21,6 +21,32 @@ export const allNotes = async ()=>{
     
 };
 
+export const noteById = async (id)=>{
+    try {
+        const notes = await getNoteById(id);
+        return notes;
+    } catch (err) {
+        throw new Error (err);
+    }   
+    
+};
+
+export const noteByUserId = async (id)=>{
+    try {
+        const notes = await noteByUser(id);
+        return notes;
+    } catch (err) {
+        throw new Error (err);
+    }   
+    
+};
+
+
+
+
+
+
+
 export const updateNoteById = async (id,newData)=>{
     try {
         const updatedNote = await updateNote(id,newData);
@@ -30,6 +56,7 @@ export const updateNoteById = async (id,newData)=>{
     }   
     
 };
+
 export const deleteNoteById = async (id)=>{
     try {
         const deletedNote = await deleteNote(id);
