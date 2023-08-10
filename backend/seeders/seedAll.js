@@ -19,5 +19,6 @@ export async function seedAll (){
         content:"Contenido desde el seeder",
         users:newUser.id
     }
+    
     const newNote=await createNote(note1);
 }

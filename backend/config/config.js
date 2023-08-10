@@ -18,6 +18,8 @@ export default {
     "entities": [User,Note],
     "subscribers": [],
     "migrations": ['../migrations'],
+    "seeds":[`../seeds`],
+    "factories": [`../factories`]    
   },
   "test": {
     "username": process.env.DB_USER,
