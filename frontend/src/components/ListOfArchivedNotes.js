@@ -3,20 +3,20 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Center, SimpleGrid, Box,Flex,Text,ButtonGroup,Button} from '@chakra-ui/react'
-import Note from "./Note";
-import ModalNewNote from "./ModalNewNote";
+import ArchivedNote from "./ArchivedNote";
 
 
 
 
-function ListOfNotes() {
+
+function ListOfArchivedNotes() {
     const navigate = useNavigate();
     const [notes, setNotes] = useState([]);
     const {id} = useParams();
     
-    const getUserNotes = async (id) => {
+    const getUserArchivedNotes = async (id) => {
         try {
-            const {data} = await axios.get(`http://localhost:3001/user/${id}/notes`);            
+            const {data} = await axios.get(`http://localhost:3001/user/notes/${id}/archived`);            
             setNotes(data.message);
         } catch (error) {
             console.log(error)
@@ -24,20 +24,18 @@ function ListOfNotes() {
         return
     }
     
-    const newNote = ()=>{
-        console.log('Creando una nueva nota')
-    }
-    const archivedNotes = ()=>{
-        navigate(`/list/${id}/archived`)
+    
+    const backToList = ()=>{
+        navigate(`/list/${id}`)
     }
 
     useEffect(() => { 
         
-        getUserNotes(id) }, [getUserNotes]);
+        getUserArchivedNotes(id) }, [getUserArchivedNotes]);
 
     const renderNotes = () => {
         return (notes.map((note) => {
-            return <Box key={"note_" + note.id}><Note noteData={note}/></Box>
+            return <Box key={"note_" + note.id}><ArchivedNote noteData={note}/></Box>
         }))
     }
 
@@ -46,8 +44,7 @@ function ListOfNotes() {
             <Flex flexDir='column' alignItems='center'>
             <Text as='b'>Notes of User{id}</Text>
             <ButtonGroup>
-                <ModalNewNote onClick={newNote} id={id}/>
-                <Button onClick={archivedNotes} colorScheme='gray'>ArchivedNotes</Button>                
+                <Button onClick={backToList} colorScheme='gray'>Back</Button> 
             </ButtonGroup>
             <SimpleGrid columns='3' p='10' spacing='40px'>
                 {renderNotes()}
@@ -56,4 +53,4 @@ function ListOfNotes() {
         </Center>
     )
 }
-export default ListOfNotes;
+export default ListOfArchivedNotes;
